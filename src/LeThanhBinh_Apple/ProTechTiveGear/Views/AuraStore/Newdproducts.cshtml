@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ProTechTiveGear.Models.Item>
+
+<div class="col-12">
+    <div class="arivals_slider owl-carousel">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="item" style="padding: 10px;">
+                    <div class="product-card">
+                        <a href="@Url.Action("Detail","AuraStore", new { id=item.ID })" class="product-img-box">
+                            @if (item.Quantity == 0)
+                            {
+                                <span class="out-of-stock-badge">Hết hàng</span>
+                                <div class="out-of-stock-overlay"></div>
+                            }
+                            <img src="~/img/Item/@item.Picture" alt="@item.Name">
+                        </a>
+                        <div class="product-info">
+                            <a href="@Url.Action("Detail","AuraStore", new { id=item.ID })" class="product-title">@item.Name</a>
+                            <div class="product-price">@string.Format("{0:0,0} đ", item.SellPrice)</div>
+                        </div>
+                        @if (item.Quantity == 0)
+                        {
+                            <a class="btn-add-cart disabled" href="javascript:void(0);"><i class="fa fa-ban"></i> Hết hàng</a>
+                        }
+                        else
+                        {
+                            <a class="btn-add-cart" href="@Url.Action("AddtoCart","Cart", new { @id=item.ID, @strURL=Request.Url.ToString() })"><i class="fa fa-cart-plus"></i> Thêm vào giỏ</a>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        // Hủy config cũ nếu có
+        $('.arivals_slider').trigger('destroy.owl.carousel');
+
+        $('.arivals_slider').owlCarousel({
+            loop: true,
+            margin: 10,
+            autoplay: true,           // tự chạy
+            autoplayTimeout: 5000,     // 5 giây 1 lần
+            autoplayHoverPause: true, // rê chuột vào thì dừng
+            dots: true,
+            nav: false,
+            items: 4,                 // hiện 4 cái cùng lúc
+            responsive: {
+                0: { items: 1 },
+                576: { items: 2 },
+                768: { items: 3 },
+                992: { items: 4 }     // màn hình lớn hiện 4
+            }
+        });
+    });
+</script>

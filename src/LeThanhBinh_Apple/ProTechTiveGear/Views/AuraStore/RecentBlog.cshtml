@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProTechTiveGear.Models.Blog>
+
+<aside class="r_widget recent_widget">
+    <div class="r_title">
+        <h3>Recent News</h3>
+    </div>
+    <div class="recent_w_inner">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="media" style="margin-bottom:15px;">
+                    <div class="d-flex">
+                        <a href="@Url.Action("BlogDetail","AuraStore", new { id=item.ID })">
+                            <img width="70" height="62"
+                                 src="~/img/Blog/@item.Picture"
+                                 alt="@item.Title"
+                                 style="object-fit:cover; border-radius:6px;"
+                                 onerror="this.src='/img/Item/no-image.png'">
+                        </a>
+                    </div>
+                    <div class="media-body" style="padding-left:10px;">
+                        <a href="@Url.Action("BlogDetail","AuraStore", new { id=item.ID })">
+                            <h4 style="font-size:14px; line-height:1.4;">@item.Title</h4>
+                        </a>
+                        <a href="@Url.Action("BlogDetail","AuraStore", new { id=item.ID })">
+                            <p style="font-size:12px; color:#888;">@String.Format("{0:dd/MM/yyyy}", item.DateImport)</p>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Chưa có tin tức.</p>
+        }
+    </div>
+</aside>

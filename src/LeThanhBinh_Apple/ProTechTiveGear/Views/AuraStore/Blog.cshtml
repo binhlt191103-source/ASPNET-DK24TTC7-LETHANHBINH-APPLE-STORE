@@ -1,0 +1,152 @@
+﻿@model IEnumerable<ProTechTiveGear.Models.Blog>
+@{
+    ViewBag.Title = "Tin tức Apple";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+<style>
+    .product_section {
+        background-color: #fdfdfd;
+        padding: 80px 0;
+    }
+
+    .main_title {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+        .main_title h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d2d2d;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+            .main_title h2::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 60px;
+                height: 3px;
+                background-color: #008b8b;
+            }
+
+    .product-card {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #eaeaea;
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+        .product-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transform: translateY(-5px);
+        }
+
+    .product-img-box {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f9f9f9;
+    }
+
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            padding: 15px;
+        }
+
+    .product-card:hover .product-img-box img {
+        transform: scale(1.08);
+    }
+
+    .product-info {
+        padding: 20px 15px;
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .product-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-decoration: none;
+        transition: color 0.3s;
+        min-height: 42px;
+    }
+
+        .product-title:hover {
+            color: #008b8b;
+            text-decoration: none;
+        }
+
+    .btn-add-cart {
+        display: block;
+        width: 100%;
+        padding: 14px 0;
+        background-color: #008b8b;
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 13px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-top: 1px solid #f0f0f0;
+        text-align: center;
+    }
+
+        .btn-add-cart:hover {
+            background-color: #A0522D;
+            color: #fff;
+            text-decoration: none;
+        }
+</style>
+
+<section class="product_section">
+    <div class="container">
+        <div class="main_title"><h2>Tin tức Apple</h2></div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <div class="product-card">
+                        <a href="@Url.Action("BlogDetail","AuraStore", new { id=item.ID })" class="product-img-box">
+                            <img src="~/img/Blog/@item.Picture" alt="@item.Title" onerror="this.src='/img/Item/no-image.png'">
+                        </a>
+                        <div class="product-info">
+                            <a href="@Url.Action("BlogDetail","AuraStore", new { id=item.ID })" class="product-title">@item.Title</a>
+                            <div style="font-size:12px;color:#999; margin-bottom:8px;">@String.Format("{0:dd/MM/yyyy}", item.DateImport) - Admin</div>
+                            <div style="font-size:13px;color:#666; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:38px;">@item.ShortTitle</div>
+                        </div>
+                        <a href="@Url.Action("BlogDetail","AuraStore", new { id=item.ID })" class="btn-add-cart">
+                            <i class="fa fa-eye"></i> Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

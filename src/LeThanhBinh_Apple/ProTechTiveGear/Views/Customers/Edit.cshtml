@@ -1,0 +1,62 @@
+﻿@model ProTechTiveGear.Models.Customer
+@{
+    ViewBag.Title = "Sửa khách hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Cập Nhập</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID)
+    <div class="form-horizontal">
+        <h4>Khách Hàng: @Model.Username</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Tài Khoản</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Mật Khẩu</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Passwords, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Họ Tên</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Địa Chỉ</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Email</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <h5 class="control-label col-md-2">SĐT</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu lại" class="btn btn-success" style="border-radius:20px; padding:8px 30px;" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</div>

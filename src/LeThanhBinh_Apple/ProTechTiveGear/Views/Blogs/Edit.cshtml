@@ -1,0 +1,100 @@
+﻿@model ProTechTiveGear.Models.Blog
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Cập Nhập</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Tin Tức Apple</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Ảnh hiện tại</h5>
+            <div class="col-md-10">
+                <img id="pictureUpload" width="200" src="~/img/Blog/@Model.Picture" style="border-radius:10px; margin-bottom:10px;" />
+                <br />
+                @Html.EditorFor(model => model.Picture, new { htmlAttributes = new { @class = "form-control", @id = "picture", required = "required" } })
+                <input type="button" id="btnUpload" value="Chọn ảnh khác..." class="btn btn-success" style="margin-top:5px;" />
+                <input type="file" id="fileUpload" accept="image/*" name="fileUpload" style="display:none" />
+                @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Tiêu đề</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Mô Tả Ngắn</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShortTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ShortTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Ngày Đăng</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateImport, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.DateImport, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Chi Tiết</h5>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Describe, new { @class = "form-control", rows = "10" })
+                @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-warning" style="border-radius:20px; padding:8px 30px;" />
+            </div>
+        </div>
+    </div>
+}
+<div>@Html.ActionLink("Quay lại", "Index")</div>
+
+@section upload
+{
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+            $('#fileUpload').change(function () {
+                if (window.FormData !== undefined) {
+                    var fileUpload = $('#fileUpload').get(0);
+                    var files = fileUpload.files;
+                    var formData = new FormData();
+                    formData.append('file', files[0]);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Image/ProcessUploadBlog',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#picture').val(urlImage);
+                            $('#pictureUpload').attr('src', '/img/Blog/' + urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error: ' + err.statusText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

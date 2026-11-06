@@ -1,0 +1,610 @@
+﻿@using ProTechTiveGear.Models;
+@{
+    Customer acc = (Customer)Session["usr"];
+    // Gom nhóm logic kiểm tra trạng thái đăng nhập
+    bool isLoggedIn = Session["usr"] != null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="~/img/fav-icon.png" type="image/x-icon" />
+    <title>Lê Thanh Bình Apple Store</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="~/vendors/linearicons/style.css" rel="stylesheet">
+    <link href="~/vendors/flat-icon/flaticon.css" rel="stylesheet">
+    <link href="~/vendors/stroke-icon/style.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/revolution/css/settings.css" rel="stylesheet">
+    <link href="~/vendors/revolution/css/layers.css" rel="stylesheet">
+    <link href="~/vendors/revolution/css/navigation.css" rel="stylesheet">
+    <link href="~/vendors/animate-css/animate.css" rel="stylesheet">
+    <link href="~/vendors/owl-carousel/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/vendors/magnifc-popup/magnific-popup.css" rel="stylesheet">
+    <link href="~/vendors/nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/responsive.css" rel="stylesheet">
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.removeCookie('the_cookie', { path: '/' });
+        });
+    </script>
+
+    <style>
+        /* ================= BIẾN CSS & CÀI ĐẶT CHUNG ================= */
+        :root {
+            --primary-color: #008b8b; /* Màu nâu sang trọng */
+            --primary-hover: #A0522D; /* Nâu sáng khi hover */
+            --text-dark: #2d2d2d;
+            --text-muted: #777777;
+            --bg-light: #fdfdfd;
+            --border-color: #eaeaea;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* ================= TOP HEADER ================= */
+        .top_logo_header {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #ffffff;
+        }
+
+        .header_logo_inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .h_left_text, .h_right_text {
+            flex: 1;
+        }
+
+        .text-middle {
+            flex: 2;
+            text-align: center;
+        }
+
+            /* Custom Logo */
+            .text-middle a {
+                text-decoration: none;
+            }
+
+            .text-middle p {
+                margin: 0;
+                font-weight: 700;
+                letter-spacing: -1px;
+                color: var(--text-dark);
+                transition: var(--transition);
+            }
+
+            .text-middle:hover p {
+                transform: scale(1.02);
+            }
+
+            .text-middle .brand-first {
+                color: var(--primary-color);
+            }
+
+            .text-middle .brand-shop {
+                font-size: 18px;
+                color: var(--text-muted);
+                font-weight: 500;
+                margin-left: 5px;
+                text-transform: uppercase;
+            }
+
+        /* User Auth & Actions */
+        .h_right_text {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 25px;
+        }
+
+        .user-auth-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f9f9f9;
+            padding: 8px 18px;
+            border-radius: 30px;
+        }
+
+            .user-auth-links a {
+                color: var(--text-dark);
+                font-size: 13px;
+                font-weight: 600;
+                text-transform: uppercase;
+                text-decoration: none;
+                transition: var(--transition);
+            }
+
+                .user-auth-links a:hover {
+                    color: var(--primary-color);
+                }
+
+            .user-auth-links .divider {
+                color: #ccc;
+            }
+
+        /* Dropdown User Profile */
+        .user-dropdown .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 5px 15px 5px 5px;
+            border-radius: 50px;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+            .user-dropdown .dropdown-toggle:hover {
+                background-color: #f5f5f5;
+                border-color: var(--border-color);
+            }
+
+            .user-dropdown .dropdown-toggle span {
+                font-weight: 600;
+                font-size: 14px;
+            }
+
+        .user-dropdown .user-avatar {
+            border: 2px solid transparent;
+            padding: 2px;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .user-dropdown:hover .user-avatar {
+            border-color: var(--primary-color);
+        }
+
+        .user-dropdown .dropdown-menu {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            margin-top: 15px;
+            padding: 12px 0;
+            min-width: 220px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* CHÚ Ý LỖI: Đã dùng @@ để Razor không báo lỗi CS0103 */
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-dropdown .dropdown-menu li a {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+            .user-dropdown .dropdown-menu li a i {
+                font-size: 16px;
+                width: 20px;
+                text-align: center;
+            }
+
+            .user-dropdown .dropdown-menu li a:hover {
+                background-color: #fafafa;
+                color: var(--primary-color);
+                padding-left: 28px;
+            }
+
+        .user-dropdown .dropdown-menu .divider {
+            border-top: 1px solid var(--border-color);
+            margin: 8px 0;
+        }
+
+        .user-dropdown .dropdown-menu .sign-out-item a {
+            color: #d9534f;
+        }
+
+            .user-dropdown .dropdown-menu .sign-out-item a:hover {
+                background-color: #fff5f5;
+                color: #c9302c;
+            }
+
+        /* ================= MAIN MENU ================= */
+        .middle_menu_three {
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            position: relative;
+            z-index: 10;
+        }
+
+        .navbar {
+            padding: 0;
+        }
+
+        .navbar-brand img {
+            max-height: 45px;
+            transition: var(--transition);
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.05);
+        }
+
+        .navbar .navbar-nav li a {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 22px 20px !important;
+            color: var(--text-dark) !important;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+            .navbar .navbar-nav li a::after {
+                content: '';
+                position: absolute;
+                bottom: 15px;
+                left: 20px;
+                right: 20px;
+                height: 2px;
+                background-color: var(--primary-color);
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+            }
+
+            .navbar .navbar-nav li a:hover::after,
+            .navbar .navbar-nav li.active a::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            .navbar .navbar-nav li a:hover,
+            .navbar .navbar-nav li.active a {
+                color: var(--primary-color) !important;
+            }
+
+        /* ================= LAYOUT BODY ================= */
+        .main_slider_area {
+            margin-bottom: 0;
+        }
+
+        .main_content_area {
+            padding: 70px 0;
+            background-color: var(--bg-light);
+            min-height: 50vh;
+        }
+
+        /* ================= FOOTER ================= */
+        .footer_area {
+            background-color: #151515;
+            color: #a0a0a0;
+            padding-top: 70px;
+            padding-bottom: 30px;
+        }
+
+        .f_title h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            .f_title h3::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 40px;
+                height: 2px;
+                background-color: var(--primary-color);
+            }
+
+        .f_about_widget p.brand-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .f_about_widget .desc {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .f_about_widget .nav {
+            gap: 12px;
+        }
+
+            .f_about_widget .nav li a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #222;
+                color: #fff;
+                transition: var(--transition);
+            }
+
+                .f_about_widget .nav li a:hover {
+                    background-color: var(--primary-color);
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 15px rgba(139, 69, 19, 0.4);
+                }
+
+        .f_link_widget ul li {
+            margin-bottom: 12px;
+        }
+
+            .f_link_widget ul li a {
+                color: #a0a0a0;
+                font-size: 14px;
+                text-decoration: none;
+                transition: var(--transition);
+                display: inline-block;
+            }
+
+                .f_link_widget ul li a:hover {
+                    color: var(--primary-color);
+                    transform: translateX(5px);
+                }
+
+        .f_contact_widget h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .f_contact_widget h5 {
+            font-size: 14px;
+            color: #a0a0a0;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .f_contact_widget i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .footer_copyright {
+            background-color: #0d0d0d;
+            padding: 20px 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+            .footer_copyright p {
+                margin: 0;
+                font-size: 13px;
+                color: #666;
+            }
+
+                .footer_copyright p a {
+                    color: var(--primary-color);
+                    font-weight: 600;
+                    text-decoration: none;
+                    transition: var(--transition);
+                }
+
+                    .footer_copyright p a:hover {
+                        color: var(--primary-hover);
+                    }
+
+        /* CHÚ Ý LỖI: Đã dùng @@ để tránh lỗi Razor */
+        @@media (max-width: 991px) {
+            .header_logo_inner {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .h_right_text {
+                justify-content: center;
+            }
+
+            .text-middle p {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main_header_three">
+        <div class="top_logo_header">
+            <div class="container">
+                <div class="header_logo_inner">
+                    <div class="h_left_text"></div>
+
+                    <div class="text-middle">
+                        <a href="/">
+                            <p style="font-size:32px">
+                                <span class="brand-first">LeThanhBinh</span><span class="brand-shop">AppleStore</span>
+                            </p>
+                        </a>
+                    </div>
+
+                    <div class="h_right_text">
+                        @Html.Action("Search", "AuraStore")
+
+                        @if (!isLoggedIn)
+                        {
+                            <div class="user-auth-links">
+                                <a href="@Url.Action("Login","Login")">Đăng Nhập</a>
+                                <span class="divider">|</span>
+                                <a href="@Url.Action("Register","Login")">Đăng Ký</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="dropdown submenu user-dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span>@acc.Name</span>
+                                    <img class="user-avatar" width="40" height="40" style="border-radius: 50%" src="@Url.Content("~/img/Item/avatar-default-icon.png")" alt="Avatar">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="@Url.Action("Profile","AuraStore")"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Hồ Sơ</a></li>
+                                    <li><a href="@Url.Action("ListOrderClient","AuraStore")"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Đơn Hàng</a></li>
+                                    <li><a href="@Url.Action("Changepassword","Login")"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a></li>
+                                    <li class="divider" role="separator"></li>
+                                    <li class="sign-out-item"><a href="@Url.Action("SignOut","AuraStore")"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="middle_menu_three">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="~/img/logo-2.png" alt="Logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="my_toggle_menu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        @Html.Action("Menu", "AuraStore")
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="main_slider_area">
+        <div id="main_slider" class="rev_slider" data-version="5.3.1.6">
+            <ul>
+                @Html.Action("Banner", "AuraStore")
+            </ul>
+        </div>
+    </section>
+
+    <main class="main_content_area">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="footer_area">
+        <div class="footer_widgets">
+            <div class="container">
+                <div class="row footer_wd_inner">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <aside class="f_widget f_about_widget">
+                            <p class="brand-name">LeThanhBinhAppleStore</p>
+                            <p class="desc">Chuyên cung cấp các sản phẩm phụ kiện công nghệ, đồ chơi công nghệ chính hãng, chất lượng cao với giá cả cạnh tranh nhất thị trường.</p>
+                            <ul class="nav">
+                                <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="fa fa-youtube-play"></i></a></li>
+                            </ul>
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <aside class="f_widget f_link_widget">
+                            <div class="f_title">
+                                <h3>Chính sách</h3>
+                            </div>
+                            <ul class="nav flex-column">
+                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true" style="margin-right: 8px;"></i>Chính sách bảo hành</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true" style="margin-right: 8px;"></i>Chính sách đổi trả</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true" style="margin-right: 8px;"></i>Chính sách vận chuyển</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true" style="margin-right: 8px;"></i>Chính sách bảo mật</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <aside class="f_widget f_contact_widget">
+                            <div class="f_title">
+                                <h3>Thông tin liên hệ</h3>
+                            </div>
+                            <h4><i class="fa fa-phone" aria-hidden="true"></i> 0819884365</h4>
+                            <h5>
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i> binhlt191103@tvu-onschool.edu.vn
+                            </h5>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer_copyright">
+            <div class="container">
+                <p>&copy; @DateTime.Now.Year LeThanhBinhAppleStore. Tất cả quyền được bảo lưu. Thiết kế bởi <a href="#">ProTechTiveGear</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    @Html.Action("Search", "AuraStore")
+
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/vendors/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
+    <script src="~/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/vendors/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/magnifc-popup/jquery.magnific-popup.min.js"></script>
+    <script src="~/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendors/isotope/isotope.pkgd.min.js"></script>
+    <script src="~/vendors/datetime-picker/js/moment.min.js"></script>
+    <script src="~/vendors/datetime-picker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="~/vendors/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/vendors/lightbox/simpleLightbox.min.js"></script>
+    <script src="~/Scripts/theme.js"></script>
+</body>
+</html>

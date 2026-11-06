@@ -1,0 +1,114 @@
+﻿@model ProTechTiveGear.Models.Blog
+@{
+    ViewBag.Title = "BlogDetail";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+<style>
+    .blog-detail-section {
+        padding: 60px 0;
+        background: #fdfdfd;
+    }
+
+    .blog-detail-card {
+        background: #fff;
+        border-radius: 16px;
+        border: 1px solid #eee;
+        padding: 30px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    }
+
+    .blog-detail-img {
+        width: 100%;
+        border-radius: 12px;
+        background: #f9f9f9;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+        .blog-detail-img img {
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+    .blog-meta {
+        font-size: 13px;
+        color: #999;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .blog-detail-card h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #2d2d2d;
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+
+    .blog-detail-card h5 {
+        font-size: 16px;
+        color: #008b8b;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .blog-detail-content {
+        font-size: 15px;
+        color: #444;
+        line-height: 1.8;
+    }
+
+    .recent-box {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #eee;
+        padding: 20px;
+    }
+
+        .recent-box h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #008b8b;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+</style>
+
+<section class="blog-detail-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog-detail-card">
+                    <div class="blog-detail-img">
+                        <img src="~/img/Blog/@Model.Picture" alt="@Model.Title" onerror="this.src='/img/Item/no-image.png'">
+                    </div>
+                    <div class="blog-meta">
+                        <span>@String.Format("{0:dd/MM/yyyy}", Model.DateImport)</span>
+                        <span>By : Admin</span>
+                    </div>
+                    <h2>@Model.Title</h2>
+                    <h5>@Model.ShortTitle</h5>
+                    <div class="blog-detail-content">
+                        @Html.Raw(Model.Describe)
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="@Url.Action("Blog","AuraStore")" class="btn" style="background:#008b8b;color:#fff;border-radius:30px;padding:10px 25px;">
+                            <i class="fa fa-arrow-left"></i> Quay lại Tin tức
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="recent-box">
+                    <h4>Tin tức mới nhất</h4>
+                    @Html.Action("RecentBlog", "AuraStore")
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

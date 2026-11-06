@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ProTechTiveGear.Models.Blog>
+@{
+    ViewBag.Title = "Quản lý Tin tức";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div style="padding:20px;">
+    <h2 style="text-align:center;">Quản lý Tin tức Apple</h2>
+    <p><a href="@Url.Action("AddBlog","Admin")" class="btn" style="background:#008b8b;color:#fff; border-radius:20px; padding:8px 20px;">+ Thêm bài viết</a></p>
+    <div style="background:#fff; padding:15px; border-radius:12px;">
+        <table class="table table-bordered table-hover">
+            <tr style="background:#f8f9fa;"><th>ID</th><th>Ảnh</th><th>Tiêu đề</th><th>Ngày</th><th>Thao tác</th></tr>
+            @foreach (var b in Model)
+            {
+                <tr>
+                    <td>@b.ID</td>
+                    <td><img src="~/img/Blog/@b.Picture" width="70" style="border-radius:8px;" /></td>
+                    <td><b>@b.Title</b><br /><small>@b.ShortTitle</small></td>
+                    <td>@String.Format("{0:dd/MM/yyyy}", b.DateImport)</td>
+                    <td>
+                        <a href="@Url.Action("EditBlog","Admin", new {id=b.ID})" class="btn btn-sm btn-warning">Sửa</a>
+                        <a href="@Url.Action("DeleteBlog","Admin", new {id=b.ID})" onclick="return confirm('Bạn chắc chắn muốn xóa bài [@b.Title]?')" class="btn btn-sm btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

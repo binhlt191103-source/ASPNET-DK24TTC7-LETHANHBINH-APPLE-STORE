@@ -1,0 +1,4 @@
+# 20/10/2026
+Tạo source code
+Xây dựng giao diện
+Xây dựng csdl

@@ -1,0 +1,108 @@
+﻿@{
+    string name = ""; string username = ""; string avatar = "";
+    if (Request.Cookies["usr"] != null) { username = Request.Cookies["usr"].Value; name = Request.Cookies["Name"].Value; }
+    if (Request.Cookies["avatar"] != null) { avatar = Request.Cookies["avatar"].Value; } else { avatar = "~/Content/Img/macdinh.PNG"; }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>LeThanhBinh</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/Content/Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/Admin/css/sb-admin-2.min.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index","Admin")">
+                <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                <div class="sidebar-brand-text mx-3">LeThanhBinh<sup>AppleStore</sup></div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#da" aria-expanded="true" aria-controls="da">
+                    <i class="fas fa-fw fa-cube"></i><span>Sản Phẩm</span>
+                </a>
+                <div id="da" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action("Index","Items")">Danh Sách Sản Phẩm</a>
+                        <a class="collapse-item" href="@Url.Action("Index","Menus")">Loại Menu</a>
+                        <a class="collapse-item" href="@Url.Action("Index","ItemTypes")">Loại Sản Phẩm</a>
+                        <a class="collapse-item" href="@Url.Action("Index","Brands")">Mặt Hàng</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rr2" aria-expanded="true" aria-controls="rr2">
+                    <i class="fas fa-shopping-cart fa-building"></i><span>Đơn hàng</span>
+                </a>
+                <div id="rr2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action("AllListOrder","Admin")">Danh sách</a>
+                        <a class="collapse-item" href="@Url.Action("ListOrder","Admin")">Đơn hàng chưa xử lý</a>
+                    </div>
+                </div>
+            </li>
+            <!-- TIN TỨC - ĐÃ BỎ DROPDOWN - ẤN VÀO LÀ VÀO QUẢN LÝ LUÔN -->
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","Blogs")">
+                    <i class="fas fa-fw fa-newspaper"></i>
+                    <span>Tin Tức</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-user"></i><span>Khách Hàng</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item" href="@Url.Action("Index","Customers")">Danh sách</a></div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#report" aria-expanded="true" aria-controls="report">
+                    <i class="fas fa-fw fa-user"></i><span>Thống kê</span>
+                </a>
+                <div id="report" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item" href="@Url.Action("Index","Summary")">Sản phẩm bán theo loại</a></div>
+                </div>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline"><button class="rounded-circle border-0" id="sidebarToggle"></button></div>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3"><i class="fa fa-bars"></i></button>
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"><div class="input-group"></div></form>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Quản trị viên</span><i class="fas fa-laugh-wink"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="~/Admin/SignOut"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Đăng xuất</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div style="padding-left : 20px !important">@RenderBody()</div>
+                <footer class="sticky-footer bg-white"><div class="container my-auto"><div class="copyright text-center my-auto"><span>Code by :  &copy; Lê Thanh Bình</span></div></div></footer>
+            </div>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    <script src="~/Content/Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Content/Admin/js/sb-admin-2.min.js"></script>
+    <script src="~/Content/Admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Content/Admin/js/demo/datatables-demo.js"></script>
+    <script src="~/Content/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    @RenderSection("upload", required: false) @RenderSection("scripts", required: false)
+</body>
+</html>

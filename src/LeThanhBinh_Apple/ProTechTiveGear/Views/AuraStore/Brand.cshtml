@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ProTechTiveGear.Models.HelmetsEntity>
+@{
+    ViewBag.Title = "Sản Phẩm";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+<section class="product_area p_100">
+    <div class="container">
+        <div class="row product_inner_row">
+            <div class="col-lg-9">
+                <div class="row product_item_inner">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-4 col-6">
+                            <div class="cake_feature_item">
+                                <a href="@Url.Action("DetailProduct","AuraStore",new { id=item.ID})">
+                                    <div class="cake_img">
+                                        <img class="resize-image" src="~/img/Item/@item.Picture" alt="" style="height:250px; object-fit:cover;">
+                                    </div>
+                                </a>
+                                <div class="cake_text">
+                                    <h4>@String.Format("{0:0,0} đ", item.Sellprice)</h4>
+                                    <h3>@item.Name</h3>
+                                    <a class="pest_btn" href="@Url.Action("AddToCart","Cart", new { id=item.ID })">Thêm vào giỏ</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="product_left_sidebar">
+                    <aside class="left_sidebar p_catgories_widget">
+                        <div class="p_w_title">
+                            <h3>Loại Apple</h3>
+                        </div>
+                        <ul class="list_style">
+                            <li><a href="/AuraStore/Helmets">Iphone</a></li>
+                            <li><a href="/AuraStore/RiddingGear">Macbook</a></li>
+                            <li><a href="/AuraStore/Accsesories">AirPods</a></li>
+                            <li><a href="/AuraStore/Brand">Phụ Kiện</a></li>
+                        </ul>
+                    </aside>
+                    <aside class="left_sidebar p_catgories_widget">
+                        <div class="p_w_title">
+                            <h3>Mặt Hàng</h3>
+                        </div>
+                        <ul class="list_style">
+                            <li><a href="#">Hàng có sẵn</a></li>
+                            <li><a href="#">Hàng Order</a></li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

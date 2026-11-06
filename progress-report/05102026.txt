@@ -1,0 +1,4 @@
+# 05/10/2026
+View dữ liệu từ controller lên giao diện view
+Truyền dữ liệu từ giao diện view trong các form submit tới controller xử lý
+Tạo trang quản trị viên cho các chức năng CRUD

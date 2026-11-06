@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac0390d2421241e79b1edd459e32ef82" Name="Diagram1" ZoomLevel="69">
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Admin" Width="1.5" PointX="6.75" PointY="0.5" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Banner" Width="1.5" PointX="6.75" PointY="2.625" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Blog" Width="1.5" PointX="6.75" PointY="4.25" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Brand" Width="1.5" PointX="2.625" PointY="3.75" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Customer" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Item" Width="1.5" PointX="4.625" PointY="5.25" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.ItemType" Width="1.5" PointX="2.625" PointY="6" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Menu" Width="1.5" PointX="0.5" PointY="3.75" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Order" Width="1.5" PointX="2.625" PointY="0.5" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.OrderDetail" Width="1.5" PointX="4.625" PointY="2.625" />
+        <EntityTypeShape EntityType="ProTechTiveGearModel.Payment" Width="1.5" PointX="4.75" PointY="0.5" />
+        <AssociationConnector Association="ProTechTiveGearModel.FK__Brand__MenuID__60A75C0F" />
+        <AssociationConnector Association="ProTechTiveGearModel.FK__Item__BrandID__628FA481" />
+        <AssociationConnector Association="ProTechTiveGearModel.FK__Order__CustomerI__6477ECF3" />
+        <AssociationConnector Association="ProTechTiveGearModel.FK__Item__TypeID__6383C8BA" />
+        <AssociationConnector Association="ProTechTiveGearModel.FK__OrderDeta__ItemI__656C112C" />
+        <AssociationConnector Association="ProTechTiveGearModel.FK__ItemType__MenuID__619B8048" />
+        <AssociationConnector Association="ProTechTiveGearModel.FK__OrderDeta__Order__66603565" />
+        <AssociationConnector Association="ProTechTiveGearModel.FK__Payment__OrderID__6754599E" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.125" PointY="1.5651602181573188" />
+          <ConnectorPoint PointX="4.75" PointY="1.5651602181573188" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

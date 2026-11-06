@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "ListOrder";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="text-center">1. Thống kê số lượng sản phẩm bán theo loại</h2>
+    </div>
+    <div class="card-body">
+        <canvas id="productChart" style="width:100%; height:350px;"></canvas>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="text-center" style="font-size:18px">2. Số sản phẩm bán được hằng tháng</h2>
+            </div>
+            <div class="card-body">
+                <canvas id="monthlyQtyChart" style="width:100%; height:300px;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="text-center" style="font-size:18px">3. Doanh thu hằng tháng</h2>
+            </div>
+            <div class="card-body">
+                <canvas id="monthlyRevenueChart" style="width:100%; height:300px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+$(document).ready(function () {
+    // 1. Theo loại
+    $.ajax({
+        url: '@Url.Action("GetProductStats", "Summary")',
+        method: 'GET',
+        success: function (data) {
+            var labels = data.map(item => item.TypeName);
+            var values = data.map(item => item.SLBan);
+            new Chart(document.getElementById('productChart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Số lượng bán',
+                        data: values,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true } } }
+            });
+        }
+    });
+
+    // 2. Số lượng theo tháng
+    $.ajax({
+        url: '@Url.Action("GetMonthlyQuantity", "Summary")',
+        method: 'GET',
+        success: function (data) {
+            new Chart(document.getElementById('monthlyQtyChart'), {
+                type: 'line',
+                data: {
+                    labels: data.map(x => x.Thang),
+                    datasets: [{
+                        label: 'Sản phẩm bán',
+                        data: data.map(x => x.SoLuong),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true } } }
+            });
+        }
+    });
+
+    // 3. Doanh thu theo tháng
+    $.ajax({
+        url: '@Url.Action("GetMonthlyRevenue", "Summary")',
+        method: 'GET',
+        success: function (data) {
+            new Chart(document.getElementById('monthlyRevenueChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.map(x => x.Thang),
+                    datasets: [{
+                        label: 'Doanh thu (VNĐ)',
+                        data: data.map(x => x.DoanhThu),
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true } } }
+            });
+        }
+    });
+});
+    </script>
+}
