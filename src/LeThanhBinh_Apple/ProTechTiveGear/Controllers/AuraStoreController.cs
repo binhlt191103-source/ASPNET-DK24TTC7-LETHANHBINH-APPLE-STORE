@@ -31,7 +31,7 @@ namespace ProTechTiveGear.Controllers
 		}
         private List<Item> NewItem(int count)
         {
-            return data.Items.Where(d => d.Active == true).OrderByDescending(a => a.DateImport).Take(count).ToList();
+            return data.Items.Where(d => d.Active == true).OrderByDescending(a => a.ImportDate).Take(count).ToList();
         }
         public ActionResult Index(/*FormCollection fc*/string search)
         {
@@ -52,7 +52,7 @@ namespace ProTechTiveGear.Controllers
 			//return View(NewItem(8));
 			//var model = NewItem(8).Where(nv => nv.Name.Contains(search) || search == null).ToList();
 			
-			var model = data.Items.Where(x => x.Active == true).OrderByDescending(c => c.DateImport).Take(8).Where(nv => nv.Name.Contains(search) || search == null ).ToList();
+			var model = data.Items.Where(x => x.Active == true).OrderByDescending(c => c.ImportDate).Take(8).Where(nv => nv.Name.Contains(search) || search == null ).ToList();
 			
 			return View(model);
 

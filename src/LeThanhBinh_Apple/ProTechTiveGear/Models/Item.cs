@@ -22,9 +22,9 @@ namespace ProTechTiveGear.Models
     
         public long ID { get; set; }
         public string Name { get; set; }
-        public Nullable<decimal> PurcharsePrice { get; set; }
+        public Nullable<decimal> PurchasePrice { get; set; }
         public decimal SellPrice { get; set; }
-        public Nullable<System.DateTime> DateImport { get; set; }
+        public Nullable<System.DateTime> ImportDate { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<long> TypeID { get; set; }
         public Nullable<long> BrandID { get; set; }

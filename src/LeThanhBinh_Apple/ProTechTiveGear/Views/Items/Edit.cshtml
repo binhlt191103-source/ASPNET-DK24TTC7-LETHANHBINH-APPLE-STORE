@@ -40,10 +40,10 @@
 
 		<div class="form-group">
             <h5 class="control-label col-md-2">Giá mua</h5>
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.PurcharsePrice, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-				@Html.ValidationMessageFor(model => model.PurcharsePrice, "", new { @class = "text-danger" })
-			</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PurchasePrice, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.PurchasePrice, "", new { @class = "text-danger" })
+            </div>
 		</div>
 
 		<div class="form-group">
@@ -56,10 +56,10 @@
 
 		<div class="form-group">
             <h5 class="control-label col-md-2">Ngày Nhập</h5>
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.DateImport, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-				@Html.ValidationMessageFor(model => model.DateImport, "", new { @class = "text-danger" })
-			</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImportDate, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.ImportDate, "", new { @class = "text-danger" })
+            </div>
 		</div>
 
 		<div class="form-group">

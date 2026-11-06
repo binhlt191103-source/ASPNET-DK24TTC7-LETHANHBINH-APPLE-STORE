@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProTechTiveGearModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ProTechTiveGearEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="ProTechTiveGearModel.Admin" />
+    <EntitySet Name="Banners" EntityType="ProTechTiveGearModel.Banner" />
+    <EntitySet Name="Blogs" EntityType="ProTechTiveGearModel.Blog" />
+    <EntitySet Name="Brands" EntityType="ProTechTiveGearModel.Brand" />
+    <EntitySet Name="Customers" EntityType="ProTechTiveGearModel.Customer" />
+    <EntitySet Name="Items" EntityType="ProTechTiveGearModel.Item" />
+    <EntitySet Name="ItemTypes" EntityType="ProTechTiveGearModel.ItemType" />
+    <EntitySet Name="Menus" EntityType="ProTechTiveGearModel.Menu" />
+    <EntitySet Name="Orders" EntityType="ProTechTiveGearModel.Order" />
+    <EntitySet Name="OrderDetails" EntityType="ProTechTiveGearModel.OrderDetail" />
+    <EntitySet Name="Payments" EntityType="ProTechTiveGearModel.Payment" />
+    <AssociationSet Name="FK__Brand__MenuID__60A75C0F" Association="ProTechTiveGearModel.FK__Brand__MenuID__60A75C0F">
+      <End Role="Menu" EntitySet="Menus" />
+      <End Role="Brand" EntitySet="Brands" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Item__BrandID__628FA481" Association="ProTechTiveGearModel.FK__Item__BrandID__628FA481">
+      <End Role="Brand" EntitySet="Brands" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order__CustomerI__6477ECF3" Association="ProTechTiveGearModel.FK__Order__CustomerI__6477ECF3">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Item__TypeID__6383C8BA" Association="ProTechTiveGearModel.FK__Item__TypeID__6383C8BA">
+      <End Role="ItemType" EntitySet="ItemTypes" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__ItemI__656C112C" Association="ProTechTiveGearModel.FK__OrderDeta__ItemI__656C112C">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItemType__MenuID__619B8048" Association="ProTechTiveGearModel.FK__ItemType__MenuID__619B8048">
+      <End Role="Menu" EntitySet="Menus" />
+      <End Role="ItemType" EntitySet="ItemTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Order__66603565" Association="ProTechTiveGearModel.FK__OrderDeta__Order__66603565">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payment__OrderID__6754599E" Association="ProTechTiveGearModel.FK__Payment__OrderID__6754599E">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="Passwords" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+    <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Picture" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Blog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateImport" Type="DateTime" Precision="3" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ShortTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Picture" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MenuID" Type="Int64" />
+    <NavigationProperty Name="Menu" Relationship="ProTechTiveGearModel.FK__Brand__MenuID__60A75C0F" FromRole="Brand" ToRole="Menu" />
+    <NavigationProperty Name="Items" Relationship="ProTechTiveGearModel.FK__Item__BrandID__628FA481" FromRole="Brand" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="Passwords" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="ProTechTiveGearModel.FK__Order__CustomerI__6477ECF3" FromRole="Customer" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PurchasePrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="SellPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="ImportDate" Type="DateTime" Precision="3" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="TypeID" Type="Int64" />
+    <Property Name="BrandID" Type="Int64" />
+    <Property Name="Picture" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="ShortTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Brand" Relationship="ProTechTiveGearModel.FK__Item__BrandID__628FA481" FromRole="Item" ToRole="Brand" />
+    <NavigationProperty Name="ItemType" Relationship="ProTechTiveGearModel.FK__Item__TypeID__6383C8BA" FromRole="Item" ToRole="ItemType" />
+    <NavigationProperty Name="OrderDetails" Relationship="ProTechTiveGearModel.FK__OrderDeta__ItemI__656C112C" FromRole="Item" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="ItemType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MenuID" Type="Int64" />
+    <NavigationProperty Name="Items" Relationship="ProTechTiveGearModel.FK__Item__TypeID__6383C8BA" FromRole="ItemType" ToRole="Item" />
+    <NavigationProperty Name="Menu" Relationship="ProTechTiveGearModel.FK__ItemType__MenuID__619B8048" FromRole="ItemType" ToRole="Menu" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="Link" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Brands" Relationship="ProTechTiveGearModel.FK__Brand__MenuID__60A75C0F" FromRole="Menu" ToRole="Brand" />
+    <NavigationProperty Name="ItemTypes" Relationship="ProTechTiveGearModel.FK__ItemType__MenuID__619B8048" FromRole="Menu" ToRole="ItemType" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Orderdate" Type="DateTime" Precision="3" />
+    <Property Name="Deliverystatus" Type="Boolean" />
+    <Property Name="Deliverydate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="Totalprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="CustomerID" Type="Int64" />
+    <NavigationProperty Name="Customer" Relationship="ProTechTiveGearModel.FK__Order__CustomerI__6477ECF3" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="OrderDetails" Relationship="ProTechTiveGearModel.FK__OrderDeta__Order__66603565" FromRole="Order" ToRole="OrderDetail" />
+    <NavigationProperty Name="Payments" Relationship="ProTechTiveGearModel.FK__Payment__OrderID__6754599E" FromRole="Order" ToRole="Payment" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="ItemId" Type="Int64" />
+    <Property Name="OrderID" Type="Int64" />
+    <Property Name="Totalprice" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Item" Relationship="ProTechTiveGearModel.FK__OrderDeta__ItemI__656C112C" FromRole="OrderDetail" ToRole="Item" />
+    <NavigationProperty Name="Order" Relationship="ProTechTiveGearModel.FK__OrderDeta__Order__66603565" FromRole="OrderDetail" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Payprices" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="OrderID" Type="Int64" />
+    <NavigationProperty Name="Order" Relationship="ProTechTiveGearModel.FK__Payment__OrderID__6754599E" FromRole="Payment" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK__Brand__MenuID__60A75C0F">
+    <End Type="ProTechTiveGearModel.Menu" Role="Menu" Multiplicity="0..1" />
+    <End Type="ProTechTiveGearModel.Brand" Role="Brand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Brand">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Item__BrandID__628FA481">
+    <End Type="ProTechTiveGearModel.Brand" Role="Brand" Multiplicity="0..1" />
+    <End Type="ProTechTiveGearModel.Item" Role="Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="BrandID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order__CustomerI__6477ECF3">
+    <End Type="ProTechTiveGearModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="ProTechTiveGearModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Item__TypeID__6383C8BA">
+    <End Type="ProTechTiveGearModel.ItemType" Role="ItemType" Multiplicity="0..1" />
+    <End Type="ProTechTiveGearModel.Item" Role="Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__ItemI__656C112C">
+    <End Type="ProTechTiveGearModel.Item" Role="Item" Multiplicity="0..1" />
+    <End Type="ProTechTiveGearModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItemType__MenuID__619B8048">
+    <End Type="ProTechTiveGearModel.Menu" Role="Menu" Multiplicity="0..1" />
+    <End Type="ProTechTiveGearModel.ItemType" Role="ItemType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ItemType">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Order__66603565">
+    <End Type="ProTechTiveGearModel.Order" Role="Order" Multiplicity="0..1" />
+    <End Type="ProTechTiveGearModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payment__OrderID__6754599E">
+    <End Type="ProTechTiveGearModel.Order" Role="Order" Multiplicity="0..1" />
+    <End Type="ProTechTiveGearModel.Payment" Role="Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

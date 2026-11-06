@@ -77,7 +77,7 @@ namespace ProTechTiveGear.Controllers
         {
             if (ModelState.IsValid)
             {
-                item.DateImport = DateTime.Now;
+                item.ImportDate = DateTime.Now;
                 item.Active = true;
                 db.Items.Add(item);
                 db.SaveChanges();
@@ -99,7 +99,7 @@ namespace ProTechTiveGear.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "ID,Name,PurcharsePrice,SellPrice,DateImport,Quantity,TypeID,BrandID,Picture,ShortTitle,Describe")] Item item)
+        public ActionResult Edit([Bind(Include = "ID,Name,PurcharsePrice,SellPrice,ImportDate,Quantity,TypeID,BrandID,Picture,ShortTitle,Describe")] Item item)
         {
             if (ModelState.IsValid)
             {
